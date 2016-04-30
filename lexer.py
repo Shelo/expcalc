@@ -36,6 +36,7 @@ class ExpressionLexer(object):
         self._reserve_symbol('^')
         self._reserve_symbol('(')
         self._reserve_symbol(')')
+        self._reserve_symbol(',')
 
     def parse(self, _input):
         self.input = _input

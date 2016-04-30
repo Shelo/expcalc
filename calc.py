@@ -113,7 +113,7 @@ class Calculator(object):
         result = self._process_calc(self.exps[exp_name])
 
         # log the result.
-        self._log("[%s] %.2f", tokens[0].lexeme, result)
+        self._log("[%s] %.5f", tokens[0].lexeme, result)
 
     def _cmd_exp(self, tokens):
         """

@@ -20,7 +20,7 @@ class CalculatorTerminalController(object):
 
 
 if __name__ == '__main__':
-    print "Expression Calculator b.0005 - Marcelo Jara Almeyda"
+    print "Expression Calculator b.0009 - Marcelo Jara Almeyda"
     print "=============================================="
 
     try:
