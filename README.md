@@ -1,5 +1,8 @@
-# Usage
+# Expression Calculator
 
+This software is a calculator based on expressions, with full field
+for expandability, the user can define its out functions in python
+that can use inside the calculator using expressions.
 
 ## Concepts
 
@@ -23,6 +26,7 @@ A command tells the calculator what to do with the following data, it
 is a simplification for the parser and actually makes the code more
 maintainable.
 
+# Usage
 
 ## Defining expressions
 
@@ -53,28 +57,28 @@ Example
 ```
 let x = a + b
 let a = 2
-let b = 5
+let b = pi
 out x
 ```
 
 Output
 
 ```
-[x] 7.0000
+[x] 5.14159
 ```
 
 Also, it is possible to calculate values without a previously defined 
 expression:
 
 ```
-let a = 2
+let a = cos(2)
 let b = 5
 a + b
 ```
 
 Output
 ```
-[a + b] 7.0000
+[a + b] 4.58385
 ```
 
 ## Utility commands
