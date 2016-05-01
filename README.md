@@ -26,7 +26,21 @@ A command tells the calculator what to do with the following data, it
 is a simplification for the parser and actually makes the code more
 maintainable.
 
-# Usage
+## Expandability
+
+The user can expand the library of functions, the first time the user
+executes the calculator, the `.expcalc.py` file will be created at
+the user home. Inside this file add functions at will, like so:
+
+```
+from math import *
+
+
+def poisson(k, l):
+    return (l ** k * e ** (-l)) / (factorial(k))
+```
+
+## Usage
 
 ## Defining expressions
 
