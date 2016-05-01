@@ -23,13 +23,15 @@ class Calculator(object):
             'exp': self._cmd_exp,
         }
 
-        self.execute("let pi = " + str(math.pi))
-        self.execute("let g = 9.81")
-        self.execute("let e = " + str(math.e))
+        self._load()
 
-        self.user_home = os.path.expanduser('~')
-        self.user_defs = os.path.join(self.user_home, ".expcalc.py")
-        self._load_home_userdefs()
+    def _load(self):
+        user_home = os.path.expanduser('~')
+        self.user_defs = os.path.join(user_home, ".expcalc.py")
+        self._load_userdefs()
+
+        self.profile = os.path.join(user_home, ".expcalc_profile")
+        self._load_profile()
 
     def execute(self, _input):
         assert len(_input) < self.MAX_INPUT
@@ -139,17 +141,26 @@ class Calculator(object):
     def _log(self, message, *args):
         self.logs.append(message % args)
 
-    def _load_home_userdefs(self):
+    def _load_userdefs(self):
         global userdefs
 
         if not os.path.exists(self.user_defs):
-            self._create_userdefs()
+            with open(self.user_defs, "w") as user_defs:
+                user_defs.write("from math import *")
 
         userdefs = imp.load_source('userdefs', self.user_defs)
 
-    def _create_userdefs(self):
-        with open(self.user_defs, "w") as user_defs:
-            user_defs.write("from math import *")
+    def _load_profile(self):
+        if not os.path.exists(self.profile):
+            with open(self.profile, "w") as profile:
+                profile.write("let pi = " + str(math.pi) + "\n")
+                profile.write("let g = 9.8\n")
+                profile.write("let e = " + str(math.e) + "\n")
+
+        with open(self.profile) as profile:
+            for line in profile:
+                if line:
+                    self.execute(line.strip())
 
     @staticmethod
     def _assert_length(tokens, length):
