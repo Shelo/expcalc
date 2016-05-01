@@ -30,7 +30,16 @@ maintainable.
 
 The user can expand the library of functions, the first time the user
 executes the calculator, the `.expcalc.py` file will be created at
-the user home. Inside this file add functions at will, like so:
+the user's home. Inside this file add functions at will, like so:
+
+## User profile
+
+The user can set and initialization profile that loads calculator
+commands form a `.expcalc_profile` file at the user's home. As is,
+the calculator doesn't even know about PI, but the user can set it,
+(don't worry, the default profile already provides this sort of
+definitions, but users might want to change the values to be more
+or less precise).
 
 ```
 from math import *
