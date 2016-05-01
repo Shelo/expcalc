@@ -1,5 +1,10 @@
+import imp
+
 from lexer import ExpressionLexer
-import userdefs
+import os
+import math
+
+userdefs = {}
 
 
 class Calculator(object):
@@ -18,9 +23,13 @@ class Calculator(object):
             'exp': self._cmd_exp,
         }
 
-        self.execute("let pi = " + str(userdefs.pi))
+        self.execute("let pi = " + str(math.pi))
         self.execute("let g = 9.81")
-        self.execute("let e = " + str(userdefs.e))
+        self.execute("let e = " + str(math.e))
+
+        self.user_home = os.path.expanduser('~')
+        self.user_defs = os.path.join(self.user_home, ".expcalc.py")
+        self._load_home_userdefs()
 
     def execute(self, _input):
         assert len(_input) < self.MAX_INPUT
@@ -109,7 +118,7 @@ class Calculator(object):
         exp_name = tokens[0]
         self._assert_token_exists(exp_name)
 
-        # obtain the result.
+        # retrieve the result.
         result = self._process_calc(self.exps[exp_name])
 
         # log the result.
@@ -129,6 +138,18 @@ class Calculator(object):
 
     def _log(self, message, *args):
         self.logs.append(message % args)
+
+    def _load_home_userdefs(self):
+        global userdefs
+
+        if not os.path.exists(self.user_defs):
+            self._create_userdefs()
+
+        userdefs = imp.load_source('userdefs', self.user_defs)
+
+    def _create_userdefs(self):
+        with open(self.user_defs, "w") as user_defs:
+            user_defs.write("from math import *")
 
     @staticmethod
     def _assert_length(tokens, length):
