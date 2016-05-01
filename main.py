@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+import os
 
 import calc
 import sys
@@ -19,9 +20,20 @@ class CalculatorTerminalController(object):
                 print "\033[93m" + out + "\033[0m"
 
 
+def get_build_number():
+    path = os.path.dirname(os.path.realpath(__file__))
+
+    with open(os.path.join(path, ".buildc"), "r+") as buildc:
+        c = int(buildc.read())
+        buildc.seek(0)
+        buildc.truncate()
+        buildc.write(str(c + 1))
+        return c
+
+
 if __name__ == '__main__':
-    print "Expression Calculator b.0009 - Marcelo Jara Almeyda"
-    print "=============================================="
+    print "Expression Calculator b.%d - Marcelo Jara A." % get_build_number()
+    print
 
     try:
         ctrl = CalculatorTerminalController()
@@ -29,12 +41,3 @@ if __name__ == '__main__':
     except KeyboardInterrupt:
         print "\nGoodbye!"
         sys.exit(0)
-
-    """
-    calc = extcalc.Calculator()
-    print calc.execute("let y = 4.5")
-    print calc.execute("let x = 3 + y")
-    print calc.execute("out x")
-    print calc.execute("let y = 9.81")
-    print calc.execute("out x")
-    """

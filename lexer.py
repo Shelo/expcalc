@@ -110,7 +110,6 @@ class ExpressionLexer(object):
         if self.peek != cmp:
             return False
 
-        # TODO: not sure why...
         self.peek = ' '
         return True
 
@@ -122,74 +121,10 @@ class ExpressionLexer(object):
         self.symbols[symbol] = Token(symbol, ord(symbol))
 
 
-"""
-def debug_tokens(tokens):
-    print " ".join([token.lexeme for token in tokens])
-
-
-def exp_call_match(tokens):
-    opens = 1
-
-    for i, token in enumerate(tokens):
-        if token.type == ord('('):
-            opens += 1
-        elif token.type == ExpressionLexer.TAG_FUNCTION:
-            opens += 1
-        elif token.type == ord(')'):
-            opens -= 1
-
-            if opens == 0:
-                return i
-
-    return None
-
-
-def exp_call(tokens, start=0, stop=0):
-    found = False
-
-    i = start
-    if stop == 0:
-        stop = len(tokens)
-
-    while i < stop:
-        token = tokens[i]
-
-        if token.type == ExpressionLexer.TAG_FUNCTION:
-            arg_stop = exp_call_match(tokens[i + 1:]) + i
-
-            found = True
-
-            if not exp_call(tokens, start=i + 1, stop=arg_stop - 1):
-                # reached a point of no more function calls.
-                call = tokens[i + 1:arg_stop + 1]
-
-                tokens[i + 1] = Token(str(eval(" ".join([token.lexeme for token in call]))), '(')
-                for x in xrange(i + 2, arg_stop + 1):
-                    tokens[x] = Token(" ", '(')
-
-                found = False
-
-            i = arg_stop
-
-        i += 1
-
-    return found
-"""
-
-
 if __name__ == '__main__':
     lexer = ExpressionLexer()
     tokens = lexer.parse(
         "let x = cos(1 + sin(2 + cos(3 + 1)) + sin(2)) + (1 + 2) + cos(sin(1))"
     )
-    # exp_call(tokens)
-    # debug_tokens(tokens)
-    print eval(" ".join([token.lexeme for token in tokens[3:]]))
-    print eval("cos(1 + sin(2 + cos(3 + 1)) + sin(2)) + (1 + 2) + cos(sin(1))")
 
-"""
-let x = a(1 + b(2 + c(3 + 1)) + e(2)) + (1 + 2) + a(b(1))
-        |---------------------------|             |-----|
-              |-------------|   |--|                |--|
-                    |------|      |                   |
-"""
+    print eval(" ".join([token.lexeme for token in tokens[3:]]))
