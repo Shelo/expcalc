@@ -30,7 +30,16 @@ maintainable.
 
 The user can expand the library of functions, the first time the user
 executes the calculator, the `.expcalc.py` file will be created at
-the user's home. Inside this file add functions at will, like so:
+the user's home. Inside this file add functions at will.
+
+Example
+```python
+from math import *
+
+
+def poisson(k, l):
+    return (l ** k * e ** (-l)) / (factorial(k))
+```
 
 ## User profile
 
@@ -41,12 +50,11 @@ the calculator doesn't even know about PI, but the user can set it,
 definitions, but users might want to change the values to be more
 or less precise).
 
+Example
 ```
-from math import *
-
-
-def poisson(k, l):
-    return (l ** k * e ** (-l)) / (factorial(k))
+let pi = 3.14159265359
+let g = 9.8
+let e = 2.71828182846
 ```
 
 ## Usage
